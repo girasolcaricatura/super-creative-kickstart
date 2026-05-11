@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Super Creative Kickstart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&family=DM+Mono:wght@400&display=swap"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0f0f0f;--bg2:#1a1a1a;--bg3:#222;--bg4:#2a2a2a;
+  --text:#f0f0f0;--text2:#999;--text3:#666;
+  --border:#2e2e2e;--border2:#3a3a3a;
+  --accent:#f0f0f0;--accent-bg:#1c1c1c;
+  --success:#4ade80;--danger:#f87171;--info:#60a5fa;
+  --radius:8px;--radius-lg:12px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem 1rem}
+.container{max-width:720px;margin:0 auto}
+.hero{margin-bottom:2.5rem;padding-bottom:2rem;border-bottom:0.5px solid var(--border)}
+.logo{font-size:11px;font-weight:500;letter-spacing:0.12em;color:var(--text3);text-transform:uppercase;margin-bottom:10px}
+.title{font-size:28px;font-weight:500;color:var(--text);line-height:1.2;margin-bottom:8px}
+.subtitle{font-size:14px;color:var(--text2);line-height:1.7;max-width:540px}
+.input-area{margin-bottom:2rem}
+.tabs{display:flex;gap:0;margin-bottom:14px;border:0.5px solid var(--border2);border-radius:var(--radius);overflow:hidden;width:fit-content}
+.tab{padding:8px 20px;font-size:13px;cursor:pointer;background:transparent;border:none;color:var(--text2);font-family:'DM Sans',sans-serif;transition:background 0.15s}
+.tab.active{background:var(--bg3);color:var(--text);font-weight:500}
+.panel{display:none}.panel.active{display:block}
+label{display:block;font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+textarea{width:100%;font-size:14px;line-height:1.6;background:var(--bg2);border:0.5px solid var(--border2);border-radius:var(--radius);color:var(--text);padding:12px 14px;resize:vertical;min-height:180px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color 0.15s}
+textarea:focus{border-color:var(--border2)}
+textarea::placeholder{color:var(--text3)}
+.drop-zone{border:1px dashed var(--border2);border-radius:var(--radius-lg);padding:2.5rem 1rem;text-align:center;cursor:pointer;transition:background 0.15s}
+.drop-zone:hover,.drop-zone.drag-over{background:var(--bg2)}
+.drop-zone p{font-size:14px;color:var(--text2);margin:0 0 4px}
+.drop-zone span{font-size:12px;color:var(--text3)}
+input[type=file]{display:none}
+.file-ok{font-size:13px;color:var(--success);margin-top:10px;display:none}
+.btn-run{width:100%;padding:14px;font-size:15px;font-weight:500;background:var(--text);color:var(--bg);border:none;border-radius:var(--radius);cursor:pointer;margin-top:12px;font-family:'DM Sans',sans-serif;letter-spacing:0.01em;transition:opacity 0.15s}
+.btn-run:hover{opacity:0.9}
+.btn-run:disabled{opacity:0.3;cursor:not-allowed}
+.loading{text-align:center;padding:4rem 0;color:var(--text2);font-size:14px}
+.dots::after{content:'';animation:dots 1.5s infinite}
+@keyframes dots{0%{content:'.'}33%{content:'..'}66%{content:'...'}}
+.output{margin-top:2rem}
+.project-header{padding:1.25rem 1.5rem;background:var(--bg2);border-radius:var(--radius-lg);margin-bottom:1rem;border:0.5px solid var(--border)}
+.project-name{font-size:20px;font-weight:500;color:var(--text);margin-bottom:8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:11px;padding:3px 10px;border-radius:20px;background:var(--bg3);border:0.5px solid var(--border2);color:var(--text2)}
+.layers{display:flex;flex-direction:column;gap:2px;margin-bottom:1rem}
+.layer-btn{display:flex;align-items:center;gap:12px;padding:13px 16px;background:var(--bg2);border:0.5px solid transparent;border-radius:var(--radius);cursor:pointer;text-align:left;width:100%;transition:all 0.1s;font-family:'DM Sans',sans-serif}
+.layer-btn:hover{background:var(--bg3);border-color:var(--border)}
+.layer-btn.active{background:var(--bg3);border-color:var(--border2)}
+.layer-num{width:26px;height:26px;border-radius:50%;background:var(--bg4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:var(--text2);flex-shrink:0;border:0.5px solid var(--border2)}
+.layer-btn.active .layer-num{background:var(--text);color:var(--bg);border-color:var(--text)}
+.layer-info{flex:1}
+.layer-title{font-size:13px;font-weight:500;color:var(--text)}
+.layer-desc{font-size:12px;color:var(--text3);margin-top:2px}
+.layer-arrow{font-size:16px;color:var(--text3)}
+.content-panel{background:var(--bg2);border-radius:var(--radius-lg);padding:1.5rem;margin-bottom:8px;display:none;border:0.5px solid var(--border)}
+.content-panel.active{display:block}
+.section-lbl{font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.06em;color:var(--text3);margin-bottom:14px}
+.angle-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.angle-card{padding:14px;background:var(--bg3);border-radius:var(--radius);border:0.5px solid var(--border)}
+.angle-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:6px}
+.angle-text{font-size:13px;color:var(--text);line-height:1.65}
+.trigger-cat{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin:14px 0 6px}
+.trigger-cat:first-child{margin-top:0}
+.trigger-card{padding:12px 14px;background:var(--bg3);border-radius:var(--radius);border:0.5px solid var(--border);font-size:13px;color:var(--text);line-height:1.55;cursor:pointer;transition:border-color 0.1s;margin-bottom:6px}
+.trigger-card:last-child{margin-bottom:0}
+.trigger-card:hover{border-color:var(--border2)}
+.trigger-q{font-size:11px;font-weight:500;color:var(--text3);margin-bottom:4px}
+.trigger-prov{font-size:12px;color:var(--text3);margin-top:4px}
+.concept-list{display:flex;flex-direction:column;gap:8px}
+.concept-item{padding:14px;background:var(--bg3);border-radius:var(--radius);border:0.5px solid var(--border)}
+.concept-num{font-size:11px;font-weight:500;color:var(--text3);margin-bottom:4px}
+.concept-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:5px}
+.concept-idea{font-size:13px;color:var(--text2);line-height:1.6}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.04em;padding:8px 10px;border-bottom:0.5px solid var(--border);text-align:left}
+td{padding:10px;border-bottom:0.5px solid var(--border);color:var(--text);vertical-align:top}
+td:first-child{color:var(--text2);font-weight:500}
+tr:last-child td{border-bottom:none}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{display:inline-block;font-size:12px;padding:6px 14px;border-radius:20px;background:var(--bg3);border:0.5px solid var(--border2);color:var(--text2);cursor:pointer;transition:all 0.1s}
+.tag:hover{border-color:var(--text3);color:var(--text)}
+.prompt-list{display:flex;flex-direction:column;gap:8px}
+.prompt-item{padding:14px;background:var(--bg3);border-radius:var(--radius);border:0.5px solid var(--border)}
+.prompt-use{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:8px}
+.prompt-text{font-size:12px;color:var(--text);line-height:1.65;font-family:'DM Mono',monospace;white-space:pre-wrap;word-break:break-word}
+.copy-btn{font-size:11px;padding:4px 12px;margin-top:10px;cursor:pointer;border-radius:var(--radius);border:0.5px solid var(--border2);background:transparent;color:var(--text2);font-family:'DM Sans',sans-serif;transition:all 0.1s}
+.copy-btn:hover{color:var(--text);border-color:var(--text3)}
+.ref-list{display:flex;flex-direction:column;gap:8px}
+.ref-item{padding:14px;background:var(--bg3);border-radius:var(--radius);border:0.5px solid var(--border)}
+.ref-why{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.04em;margin-bottom:4px}
+.ref-name{font-size:14px;font-weight:500;color:var(--text);margin-bottom:5px}
+.ref-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:8px}
+.ref-link{font-size:12px;color:var(--info);text-decoration:none}
+.ref-link:hover{text-decoration:underline}
+.action-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:1.5rem;padding-top:1.5rem;border-top:0.5px solid var(--border)}
+.action-btn{font-size:13px;padding:9px 16px;cursor:pointer;border-radius:var(--radius);border:0.5px solid var(--border2);background:var(--bg2);color:var(--text2);font-family:'DM Sans',sans-serif;transition:all 0.1s}
+.action-btn:hover{color:var(--text);border-color:var(--text3)}
+.err{color:var(--danger);font-size:13px;padding:1rem 1.25rem;background:rgba(248,113,113,0.08);border:0.5px solid rgba(248,113,113,0.2);border-radius:var(--radius);margin-top:1rem}
+@media(max-width:600px){.angle-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <div class="logo">Herramienta de ideación BTL</div>
+    <div class="title">Super Creative Kickstart</div>
+    <div class="subtitle">Pega el brief o sube el PDF. El sistema genera 7 capas de munición creativa para que el equipo arranque desde el mejor punto posible.</div>
+  </div>
+
+  <div class="input-area">
+    <div class="tabs">
+      <button class="tab active" onclick="switchTab('texto')">Texto</button>
+      <button class="tab" onclick="switchTab('pdf')">PDF</button>
+    </div>
+
+    <div id="panel-texto" class="panel active">
+      <label>Brief completo</label>
+      <textarea id="brief-texto" placeholder="Pega aquí el brief tal como lo recibiste — texto, bullets, lo que sea..."></textarea>
+    </div>
+
+    <div id="panel-pdf" class="panel">
+      <label>Archivo PDF</label>
+      <div class="drop-zone" id="dropZone"
+        onclick="document.getElementById('fileInput').click()"
+        ondragover="handleDragOver(event)"
+        ondragleave="handleDragLeave(event)"
+        ondrop="handleDrop(event)">
+        <i class="ti ti-file-upload" style="font-size:32px;color:#555;margin-bottom:10px;display:block"></i>
+        <p>Arrastra el PDF aquí o haz clic para seleccionar</p>
+        <span>Solo archivos .pdf</span>
+      </div>
+      <input type="file" id="fileInput" accept=".pdf" onchange="handleFileSelect(event)"/>
+      <div class="file-ok" id="fileOk">
+        <i class="ti ti-check"></i> <span id="fileName"></span>
+      </div>
+    </div>
+
+    <button class="btn-run" id="runBtn" onclick="runKickstart()">
+      Lanzar Super Creative Kickstart ↗
+    </button>
+  </div>
+
+  <div id="output"></div>
+</div>
+
+<script>
+let pdfB64=null,activeTab='texto';
+
+function switchTab(t){
+  activeTab=t;
+  document.querySelectorAll('.tab').forEach((el,i)=>el.classList.toggle('active',['texto','pdf'][i]===t));
+  document.getElementById('panel-texto').classList.toggle('active',t==='texto');
+  document.getElementById('panel-pdf').classList.toggle('active',t==='pdf');
+}
+
+function handleDragOver(e){e.preventDefault();document.getElementById('dropZone').classList.add('drag-over')}
+function handleDragLeave(){document.getElementById('dropZone').classList.remove('drag-over')}
+function handleDrop(e){
+  e.preventDefault();
+  document.getElementById('dropZone').classList.remove('drag-over');
+  const f=e.dataTransfer.files[0];
+  if(f&&f.type==='application/pdf')processFile(f);
+}
+function handleFileSelect(e){const f=e.target.files[0];if(f)processFile(f)}
+function processFile(f){
+  const r=new FileReader();
+  r.onload=e=>{
+    pdfB64=e.target.result.split(',')[1];
+    document.getElementById('fileOk').style.display='block';
+    document.getElementById('fileName').textContent=f.name;
+  };
+  r.readAsDataURL(f);
+}
+
+function buildPrompt(txt){
+  return`Eres un director creativo senior con 15 años de experiencia en experiential marketing, BTL, stands en festivales y activaciones de marca. Tu rol es generar munición creativa para equipos creativos de agencia — no propuestas terminadas, sino disparadores de creatividad que abran posibilidades.
+
+${txt?'BRIEF:\n'+txt:'Analiza el brief del documento adjunto.'}
+
+Responde ÚNICAMENTE con JSON válido, sin texto antes ni después, sin markdown. Usa exactamente esta estructura:
+
+{
+  "marca":"nombre de marca inferido",
+  "tipo":"tipo de activación inferido",
+  "contexto":"festival/evento/punto de venta/etc",
+  "presupuesto":"inferido o No especificado",
+  "target":"target principal inferido",
+  "lectura":{
+    "literal":"Qué dice el brief literalmente en 2 oraciones",
+    "real":"Qué quiere decir realmente la marca más allá de lo literal en 2 oraciones",
+    "no_dicho":"Qué no dice el brief pero claramente importa en 2 oraciones",
+    "supuesto_falso":"Qué está asumiendo el brief que podría cuestionarse en 2 oraciones"
+  },
+  "triggers":{
+    "espacio":[
+      {"pregunta":"¿Y si...?","provocacion":"por qué esta pregunta es interesante para este brief específico"},
+      {"pregunta":"¿Y si...?","provocacion":"explicación"},
+      {"pregunta":"¿Y si...?","provocacion":"explicación"}
+    ],
+    "mecanica":[
+      {"pregunta":"¿Y si...?","provocacion":"explicación"},
+      {"pregunta":"¿Y si...?","provocacion":"explicación"},
+      {"pregunta":"¿Y si...?","provocacion":"explicación"}
+    ],
+    "marca":[
+      {"pregunta":"¿Y si...?","provocacion":"explicación"},
+      {"pregunta":"¿Y si...?","provocacion":"explicación"},
+      {"pregunta":"¿Y si...?","provocacion":"explicación"}
+    ],
+    "usuario":[
+      {"pregunta":"¿Y si...?","provocacion":"explicación"},
+      {"pregunta":"¿Y si...?","provocacion":"explicación"}
+    ],
+    "tecnologia":[
+      {"pregunta":"¿Y si...?","provocacion":"explicación"},
+      {"pregunta":"¿Y si...?","provocacion":"explicación"}
+    ]
+  },
+  "conceptos":[
+    {"titulo":"Nombre del concepto","idea":"La idea en 2 líneas sin desarrollar — solo suficiente para disparar la imaginación del creativo"},
+    {"titulo":"Nombre","idea":"idea"},
+    {"titulo":"Nombre","idea":"idea"},
+    {"titulo":"Nombre","idea":"idea"},
+    {"titulo":"Nombre","idea":"idea"},
+    {"titulo":"Nombre","idea":"idea"},
+    {"titulo":"Nombre","idea":"idea"}
+  ],
+  "semantica":[
+    {"marca_obj":"objeto/concepto de la marca","contexto_obj":"objeto/concepto del contexto","combinacion":"qué resultado creativo genera este cruce"},
+    {"marca_obj":"...","contexto_obj":"...","combinacion":"..."},
+    {"marca_obj":"...","contexto_obj":"...","combinacion":"..."},
+    {"marca_obj":"...","contexto_obj":"...","combinacion":"..."},
+    {"marca_obj":"...","contexto_obj":"...","combinacion":"..."},
+    {"marca_obj":"...","contexto_obj":"...","combinacion":"..."},
+    {"marca_obj":"...","contexto_obj":"...","combinacion":"..."},
+    {"marca_obj":"...","contexto_obj":"...","combinacion":"..."}
+  ],
+  "copies":["copy 1","copy 2","copy 3","copy 4","copy 5","copy 6","copy 7","copy 8","copy 9","copy 10","copy 11","copy 12"],
+  "prompts_imagen":[
+    {"uso":"para qué sirve","prompt":"el prompt completo listo para pegar en Midjourney o Gemini"},
+    {"uso":"uso","prompt":"prompt"},
+    {"uso":"uso","prompt":"prompt"},
+    {"uso":"uso","prompt":"prompt"},
+    {"uso":"uso","prompt":"prompt"},
+    {"uso":"uso","prompt":"prompt"}
+  ],
+  "referencias":[
+    {"nombre":"nombre de la activación o marca","por_que":"por qué sirve de referencia para este brief específico","descripcion":"qué hicieron y por qué funcionó en 2 líneas","url":"URL real si existe o null"},
+    {"nombre":"...","por_que":"...","descripcion":"...","url":"..."},
+    {"nombre":"...","por_que":"...","descripcion":"...","url":"..."},
+    {"nombre":"...","por_que":"...","descripcion":"...","url":"..."},
+    {"nombre":"...","por_que":"...","descripcion":"...","url":"..."}
+  ]
+}
+
+Sé específico al brief. Nada genérico. Las trigger cards deben sentirse escritas para ESTE proyecto. Los conceptos deben abrir posibilidades sin cerrarlas.`;
+}
+
+async function runKickstart(){
+  let body;
+  const btn=document.getElementById('runBtn');
+
+  if(activeTab==='texto'){
+    const txt=document.getElementById('brief-texto').value.trim();
+    if(!txt){showErr('Por favor pega el texto del brief.');return}
+    body={model:'claude-sonnet-4-20250514',max_tokens:4000,messages:[{role:'user',content:buildPrompt(txt)}]};
+  } else {
+    if(!pdfB64){showErr('Por favor sube un archivo PDF.');return}
+    body={
+      model:'claude-sonnet-4-20250514',
+      max_tokens:4000,
+      messages:[{role:'user',content:[
+        {type:'document',source:{type:'base64',media_type:'application/pdf',data:pdfB64}},
+        {type:'text',text:buildPrompt(null)}
+      ]}]
+    };
+  }
+
+  btn.disabled=true;btn.textContent='Generando...';
+  document.getElementById('output').innerHTML='<div class="loading"><span class="dots">Analizando el brief</span></div>';
+
+  try{
+    const res=await fetch('/api/kickstart',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(body)
+    });
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message||data.error);
+    const raw=data.content.map(i=>i.text||'').join('');
+    const match=raw.match(/\{[\s\S]*\}/);
+    if(!match)throw new Error('No se pudo parsear la respuesta');
+    render(JSON.parse(match[0]));
+  } catch(e){
+    showErr('Error: '+e.message+'. Intenta de nuevo.');
+  }
+  btn.disabled=false;btn.textContent='Lanzar Super Creative Kickstart ↗';
+}
+
+function showErr(msg){document.getElementById('output').innerHTML=`<div class="err">${msg}</div>`}
+
+const LAYERS=[
+  {id:'lectura',icon:'ti-eye',title:'Lectura del brief',desc:'4 ángulos distintos del mismo brief'},
+  {id:'triggers',icon:'ti-bolt',title:'Trigger cards',desc:'Preguntas ¿y si? específicas para este proyecto'},
+  {id:'conceptos',icon:'ti-bulb',title:'Posibilidades de concepto',desc:'7 direcciones para el booth sin desarrollar'},
+  {id:'semantica',icon:'ti-arrows-shuffle',title:'Cruces semánticos',desc:'Combinaciones marca × contexto'},
+  {id:'copies',icon:'ti-writing',title:'Banco de lenguaje',desc:'Copies y namings sin jerarquía'},
+  {id:'prompts',icon:'ti-camera',title:'Prompts de imagen',desc:'Listos para Midjourney / Gemini'},
+  {id:'referencias',icon:'ti-world',title:'Referencias e inspiración',desc:'Activaciones existentes relevantes'},
+];
+
+function render(d){
+  let html=`<div class="project-header">
+    <div class="project-name">${d.marca||'Proyecto'}</div>
+    <div class="chips">
+      ${d.tipo?`<span class="chip">${d.tipo}</span>`:''}
+      ${d.contexto?`<span class="chip">${d.contexto}</span>`:''}
+      ${d.presupuesto&&d.presupuesto!=='No especificado'?`<span class="chip">${d.presupuesto}</span>`:''}
+      ${d.target?`<span class="chip">${d.target}</span>`:''}
+    </div>
+  </div>
+  <div class="layers">`;
+
+  LAYERS.forEach((l,i)=>{
+    html+=`<button class="layer-btn${i===0?' active':''}" onclick="toggleLayer('${l.id}',this)">
+      <div class="layer-num">${i+1}</div>
+      <div class="layer-info">
+        <div class="layer-title"><i class="ti ${l.icon}" style="font-size:14px;margin-right:6px"></i>${l.title}</div>
+        <div class="layer-desc">${l.desc}</div>
+      </div>
+      <i class="ti ti-chevron-down layer-arrow"></i>
+    </button>
+    <div class="content-panel${i===0?' active':''}" id="panel-${l.id}">${renderLayer(l.id,d)}</div>`;
+  });
+
+  html+=`</div><div class="action-row">
+    <button class="action-btn" onclick="copyAll()">Copiar todo el kickstart</button>
+    <button class="action-btn" onclick="window.location.reload()">Nuevo brief</button>
+  </div>`;
+
+  document.getElementById('output').innerHTML=html;
+}
+
+function toggleLayer(id,btn){
+  document.querySelectorAll('.layer-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.content-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+}
+
+function renderLayer(id,d){
+  if(id==='lectura'){
+    const l=d.lectura||{};
+    return`<div class="section-lbl">Cuatro lecturas del mismo brief</div>
+    <div class="angle-grid">
+      <div class="angle-card"><div class="angle-label">Lo que dice</div><div class="angle-text">${l.literal||''}</div></div>
+      <div class="angle-card"><div class="angle-label">Lo que quiere decir</div><div class="angle-text">${l.real||''}</div></div>
+      <div class="angle-card"><div class="angle-label">Lo que no dice</div><div class="angle-text">${l.no_dicho||''}</div></div>
+      <div class="angle-card"><div class="angle-label">Lo que podría ser falso</div><div class="angle-text">${l.supuesto_falso||''}</div></div>
+    </div>`;
+  }
+  if(id==='triggers'){
+    const t=d.triggers||{};
+    const cats=[
+      {key:'espacio',label:'Espacio físico'},
+      {key:'mecanica',label:'Mecánica'},
+      {key:'marca',label:'Marca'},
+      {key:'usuario',label:'Usuario'},
+      {key:'tecnologia',label:'Tecnología'},
+    ];
+    let h=`<div class="section-lbl">Toca cualquier card para explorarla</div>`;
+    cats.forEach(c=>{
+      if(!t[c.key]||!t[c.key].length)return;
+      h+=`<div class="trigger-cat">${c.label}</div>`;
+      t[c.key].forEach(tr=>{
+        h+=`<div class="trigger-card">
+          <div class="trigger-q">¿Y si...?</div>
+          <div>${tr.pregunta||''}</div>
+          ${tr.provocacion?`<div class="trigger-prov">${tr.provocacion}</div>`:''}
+        </div>`;
+      });
+    });
+    return h;
+  }
+  if(id==='conceptos'){
+    const c=d.conceptos||[];
+    let h=`<div class="section-lbl">7 direcciones posibles — sin desarrollar, para disparar</div><div class="concept-list">`;
+    c.forEach((item,i)=>{
+      h+=`<div class="concept-item">
+        <div class="concept-num">Dirección ${i+1}</div>
+        <div class="concept-title">${item.titulo||''}</div>
+        <div class="concept-idea">${item.idea||''}</div>
+      </div>`;
+    });
+    return h+`</div>`;
+  }
+  if(id==='semantica'){
+    const s=d.semantica||[];
+    let h=`<div class="section-lbl">Cruces marca × contexto — combinaciones que pueden ser objetos, mecánicas o conceptos</div>
+    <table><thead><tr><th>Marca</th><th>Contexto</th><th>Posibilidad creativa</th></tr></thead><tbody>`;
+    s.forEach(row=>{
+      h+=`<tr><td>${row.marca_obj||''}</td><td>${row.contexto_obj||''}</td><td>${row.combinacion||''}</td></tr>`;
+    });
+    return h+`</tbody></table>`;
+  }
+  if(id==='copies'){
+    const c=d.copies||[];
+    return`<div class="section-lbl">Banco de lenguaje sin jerarquía</div>
+    <div class="tags">${c.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`;
+  }
+  if(id==='prompts'){
+    const p=d.prompts_imagen||[];
+    let h=`<div class="section-lbl">Listos para pegar en Midjourney o Gemini</div><div class="prompt-list">`;
+    p.forEach(item=>{
+      const esc=(item.prompt||'').replace(/`/g,'\\`').replace(/\\/g,'\\\\');
+      h+=`<div class="prompt-item">
+        <div class="prompt-use">${item.uso||''}</div>
+        <div class="prompt-text">${item.prompt||''}</div>
+        <button class="copy-btn" onclick="(function(btn,txt){navigator.clipboard.writeText(txt).then(()=>{btn.textContent='Copiado';setTimeout(()=>btn.textContent='Copiar prompt',1500)})})(this,'${esc}')">Copiar prompt</button>
+      </div>`;
+    });
+    return h+`</div>`;
+  }
+  if(id==='referencias'){
+    const r=d.referencias||[];
+    let h=`<div class="section-lbl">Activaciones existentes relevantes para este brief</div><div class="ref-list">`;
+    r.forEach(item=>{
+      h+=`<div class="ref-item">
+        <div class="ref-why">${item.por_que||''}</div>
+        <div class="ref-name">${item.nombre||''}</div>
+        <div class="ref-desc">${item.descripcion||''}</div>
+        ${item.url&&item.url!=='null'&&item.url!==null?`<a class="ref-link" href="${item.url}" target="_blank">Ver referencia →</a>`:''}
+      </div>`;
+    });
+    return h+`</div>`;
+  }
+  return '';
+}
+
+function copyAll(){
+  const panels=document.querySelectorAll('.content-panel');
+  let txt='SUPER CREATIVE KICKSTART\n\n';
+  panels.forEach(p=>{txt+=p.innerText+'\n\n---\n\n'});
+  navigator.clipboard.writeText(txt).then(()=>alert('Copiado al portapapeles'));
+}
+</script>
+</body>
+</html>

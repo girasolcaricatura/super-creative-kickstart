@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/kickstart.js": {
+      "maxDuration": 60
+    }
+  }
+}
