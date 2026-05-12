@@ -1,8 +1,0 @@
-{
-  "functions": {
-    "api/genera.js": {
-      "maxDuration": 60,
-      "memory": 1024
-    }
-  }
-}
