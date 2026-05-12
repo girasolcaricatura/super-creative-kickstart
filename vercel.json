@@ -3,9 +3,9 @@
     "api/kickstart.js": {
       "maxDuration": 60,
       "memory": 1024
+    },
+    "api/key.js": {
+      "maxDuration": 10
     }
-  },
-  "api": {
-    "bodySizeLimit": "10mb"
   }
 }
