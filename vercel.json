@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/kickstart.js": {
+    "api/genera.js": {
       "maxDuration": 60,
       "memory": 1024
     }
