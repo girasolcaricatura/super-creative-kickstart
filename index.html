@@ -287,7 +287,7 @@ async function runKickstart(){
   document.getElementById('output').innerHTML='<div class="loading"><span class="dots">Analizando el brief</span></div>';
 
   try{
-    const res=await fetch('/api/genera',{
+    const res=await fetch('https://super-creative-kickstart-mrrp7sgln-girasolcaricaturas-projects.vercel.app/api/genera',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(body)
