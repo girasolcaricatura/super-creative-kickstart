@@ -287,19 +287,9 @@ async function runKickstart(){
   document.getElementById('output').innerHTML='<div class="loading"><span class="dots">Analizando el brief</span></div>';
 
   try{
-    // Obtener la key del backend (request pequeño, sin límite de tamaño)
-    const keyRes=await fetch('/api/key');
-    if(!keyRes.ok)throw new Error('No se pudo obtener la configuración');
-    const {key}=await keyRes.json();
-
-    // Llamar directo a Anthropic desde el frontend (sin pasar por Vercel)
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('/api/kickstart',{
       method:'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'x-api-key':key,
-        'anthropic-version':'2023-06-01'
-      },
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify(body)
     });
     if(!res.ok)throw new Error('HTTP '+res.status);
