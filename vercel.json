@@ -3,9 +3,6 @@
     "api/kickstart.js": {
       "maxDuration": 60,
       "memory": 1024
-    },
-    "api/key.js": {
-      "maxDuration": 10
     }
   }
 }
